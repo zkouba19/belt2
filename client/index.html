@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+	<meta charset="utf-8">
+	<title>Index Page</title>
+	<script src="angular/angular.js"></script>
+	<script src="angular-route/angular-route.js"></script>
+	<script src="assets/app.js"></script>
+	<script src="assets/factories/userFactory.js"></script>
+	<script src="assets/factories/appointmentFactory.js"></script>
+	<script src="assets/controllers/userController.js"></script>
+	<script src="assets/controllers/appointmentController.js"></script>
+</head>
+<body ng-controller="appointmentController">
+<div>
+	<h1>Doctor's Appointments</h1>
+	<button ng-click="logout()">Log Out</button>
+</div>
+<div ng-view></div>
+</body>
+</html>

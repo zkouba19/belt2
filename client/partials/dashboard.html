@@ -1,0 +1,22 @@
+<div id="appointments">
+	Search: <input type="text" name="search" ng-model="search">
+	<table>
+		<thead>
+			<tr>
+				<th>Date</th>
+				<th>Time</th>
+				<th>Patient Name</th>
+				<th>Complain</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="appointment in appointments | filter: search">
+				<td ng-bind="appointment.date | date: MM/dd/yyyy"></td>
+				<td ng-bind="appointment.time"></td>
+				<td ng-bind="appointment.patient.name"></td>
+				<td>{{ appointment.complaint }} <button ng-if="appointment.patient._id == user._id" ng-click="delete(appointment._id)">Delete</button></td>
+			</tr>
+		</tbody>
+	</table>
+	<button><a href="#!/new_appointment">Create Appointment</a></button>
+</div>
