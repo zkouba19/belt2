@@ -42,21 +42,11 @@ app.controller('appointmentController', ['$scope', '$location', '$window', 'appo
 
 	$scope.create = function(){
 		
-		if(!$scope.date){
-			$scope.messages.push("Date must be filled before creating new appointment")
-		}
-		if(!$scope.time){
-			$scope.messages.push("Time must be selected before creating new appointment")	
-		}
-		if(!$scope.complaint){
-			$scope.messages.push("Complaint must be a minimum of 10 characters before creating new appointment")
-		}
-		if($scope.messages.length < 1){
-			appointmentFactory.create(userFactory.user, $scope.appointment, function(data){
-				console.log("This is for the new appointment", data);
-				$location.url('/');
-			})
-		}
+		appointmentFactory.create(userFactory.user, $scope.appointment, function(data){
+			console.log("This is for the new appointment", data);
+			$location.url('/');
+		})
+	
 	}
 
 	$scope.cancel = function(){
