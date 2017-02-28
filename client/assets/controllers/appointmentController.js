@@ -31,6 +31,27 @@ app.controller('appointmentController', ['$scope', '$location', '$window', 'appo
 	}
 	AppointmentIndex()
 
+	var validate = function(appointment){
+		console.log('going into validations')
+		var dateCount = 0
+		console.log("********************")
+		console.log(appointment)
+		console.log("********************")
+		console.log($scope.appointments)
+		console.log("********************")
+		for(var i = 0; i < $scope.appointments.length; i++){
+			if($scope.appointments[i].date.toDateString === appointment.date.toDateString){
+				dateCount ++
+			}
+			if($scope.appointments[i].time === appointment.time && $scope.appointments[i].date.toDateString === appointment.date.toDateString){
+				$scope.messages.push('Some one has already booked that time and date. Please select a different time or date.')
+			}
+		}
+		if(dateCount === 3){
+			$scope.messages.push('There are already three apointments for that day please select another');
+		}
+	}
+
 	$scope.logout = function(){
 		console.log("logout button is working")
 		userFactory.logout(function(data){
@@ -41,12 +62,14 @@ app.controller('appointmentController', ['$scope', '$location', '$window', 'appo
 	}
 
 	$scope.create = function(){
-		
-		appointmentFactory.create(userFactory.user, $scope.appointment, function(data){
-			console.log("This is for the new appointment", data);
-			$location.url('/');
-		})
-	
+		$scope.messages = [];
+		validate($scope.appointment);
+		if($scope.messages.length < 1){
+			appointmentFactory.create(userFactory.user, $scope.appointment, function(data){
+				console.log("This is for the new appointment", data);
+				$location.url('/');
+			})
+		}
 	}
 
 	$scope.cancel = function(){
@@ -60,6 +83,7 @@ app.controller('appointmentController', ['$scope', '$location', '$window', 'appo
 			AppointmentIndex();
 		})
 	}
+
 }])
 
 
